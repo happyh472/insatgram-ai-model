@@ -1,0 +1,27 @@
+import openai
+
+# Set up your OpenAI API key
+openai.api_key = "your-api-key"
+
+# Define the prompt to generate Hinglish content
+prompt = "Generate a motivational message for students struggling with exams in Hinglish."
+
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+generated_message = response['choices'][0]['message']['content']
+print("Generated Hinglish Message:", generated_message)
+from gtts import gTTS
+import os
+
+# Hinglish text from AI content
+hinglish_message = "Aap apne sapno ko sach bana sakte ho agar aap mehnat karenge."
+
+# Convert the text to speech
+tts = gTTS(text=hinglish_message, lang='hi')  # Using Hindi accent (you can adjust language)
+tts.save("output.mp3")
+
+# Play the audio (on Windows)
+os.system("start output.mp3")
